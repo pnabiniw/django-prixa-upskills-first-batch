@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DTL</title>
+</head>
+<body>
+    <h1>DTL Page</h1>
+    <h1>Hello from {{name}}</h1>
+    <h1>My name is {{student}}</h1>
+
+    {% for student in students %}
+        Name: {{student.name}}
+        Age: {{student.age}}
+        <br><br>
+
+    {% endfor %}
+    {{students.0.name}}
+    {{students.1.age}}
+    {{students.10.age}}
+    <br><br>
+
+    {% for student in students %}
+        {% if student.display == True %}
+            Name: {{student.name}}
+            Age: {{student.age}}
+            <br>
+            {% elif student.name == "Alex" %}
+                Alex is Funny<br>
+        {%else%}
+            No data
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
