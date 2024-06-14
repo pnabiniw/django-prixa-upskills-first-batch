@@ -1,0 +1,63 @@
+1. ORM stands for Object Relational Mapping
+2. It is the way to query the database without having to write the raw SQL
+    queries
+
+    * CREATE into classroom (id, name, section) values (1, One, A)
+    * Select * from classroom
+    * Update Student where id=2
+    We donot directly write these queries in django
+    Instead we write ORM
+
+3. Using ORM, we can write Python code to query the database
+
+4. Basic ORMs to CRUD in a table in Django
+    => Consider a "Classroom" model
+    a. Classroom.objects.create(name="One", section="A")
+        => This creates a new classroom object / row in table crud_classroom
+    
+    b. Classroom.objects.all()
+        => This ORM returns a queryset of all the classroom objects
+        => Querysets are list like objects but they are not actually a list. Also querysets are immutable
+        => Queryset also supports slicing
+        => Querysets support positive indexing starting from 0
+        => Unlike list, querysets don't support negative indexing
+        => Querysets can be used as an iterbale in a "for" loop
+        => Queryset elements can be accessed using for loop or indexing
+
+        classrooms = Classroom.objects.all()
+        for c in classrooms:
+            print(c.id)
+            print(c.name)
+            print(c.section)
+
+    c. Classroom.objects.filter(name="One")
+        => .filter() also gives queryset similar to .all()
+        c = Clasroom.objects.fiter(name="One")  # [obj, obj, obj]
+        print(c[0].name)    
+    
+    d. Classroom.objects.get(name="One")
+        => .get() gives an object (not queryset)
+        => This object is a table row
+        c = Classroom.objects.get(name="One")
+        print(c.name)  # One
+
+
+        # Edge cases in .get() method
+        => If you have multiple classrooms with name "One"
+        Classroom.objects.get(name="One")
+        This raises Multiple objects returned error
+
+        => If you try to get object which is not there in table
+        Classroom.objects.get(id=100)
+        This raises DoesNotExist Error
+
+    e. Classroom.objects.filter(id=2).update(name="Ten")
+       Classroom.objects.all().update(name="One")
+    
+       Classroom.objects.get(id=2).update(name="Ten")
+        => We are not allowed to write this
+        => This raise Attribute error (classroom object has no attribute update)
+
+    f. Classroom.objects.filter(name="One").delete()
+       Classroom.objects.all().delete()
+       Classroom.objects.get(id=2).delete() => Unlike update this is possible possible for delete()

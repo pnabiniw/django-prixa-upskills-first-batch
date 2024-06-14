@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from crud.models import Classroom
 
 
 def home_view(request):
@@ -50,7 +51,8 @@ def using_bootstrap_view(request):
     return render(request, template_name="myapp/using_bootstrap.html", context={"students": s})
 
 def temp_inherit_view(request):
-    return render(request, template_name="myapp/home.html")
+    classrooms = Classroom.objects.all()
+    return render(request, template_name="myapp/home.html", context={"classrooms": classrooms})
 
 def about_view(request):
     return render(request, template_name="myapp/about.html")
