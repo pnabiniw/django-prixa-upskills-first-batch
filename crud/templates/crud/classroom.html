@@ -1,0 +1,36 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Classroom
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h1>Classroom List</h1><br>
+    <a href="{% url 'add_classoom' %}" class="btn btn-success" style="float: right;">Add Classroom</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Section</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for classroom in classrooms %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{classroom.name}}</td>
+                    <td>{{classroom.section}}</td>
+                    <td>
+                        <a href="#" class="btn btn-primary">Update</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

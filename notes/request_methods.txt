@@ -1,0 +1,13 @@
+June 17
+
+While using django, we use two types of request methods
+1. Get Method
+2. Post Method
+
+
+# 1. Get
+=> This is the request from client (web browser) to get the data 
+from django server
+
+# Post
+=> This is the request from client to post new data to the django server
