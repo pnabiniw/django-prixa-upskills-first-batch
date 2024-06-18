@@ -1,0 +1,18 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Delete Classroom
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h2>Are you sure you want to delete {{classroom.name}}?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{% url 'crud_classroom' %}" class="btn btn-primary">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}

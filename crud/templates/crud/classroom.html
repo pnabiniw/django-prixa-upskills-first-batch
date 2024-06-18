@@ -25,8 +25,8 @@ Classroom
                     <td>{{classroom.name}}</td>
                     <td>{{classroom.section}}</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Update</a>
-                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'update_classroom' classroom.id %}" class="btn btn-primary">Update</a>
+                        <a href="{% url 'delete_classroom' classroom.id %}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
             {% endfor %}

@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Add Student
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Add Student</h1><br>
+
+    <form method="post" class="form form-group">
+        {% csrf_token %}
+        <div>
+            <label>Name</label>
+            <input required class="form-control" type="text" name="name" style="width: 50%;">
+        </div>
+        <div>
+            <label>Age</label>
+            <input required class="form-control" type="number" style="width: 50%;" name="age">
+        </div><br>
+
+        <div>
+            <label>Email</label>
+            <input required class="form-control" type="email" style="width: 50%;" name="email">
+        </div><br>
+        <div>
+            <label>Address</label>
+            <input required class="form-control" type="text" style="width: 50%;" name="address">
+        </div><br>
+
+        <button class="btn btn-primary" type="submit" >Submit</button>
+    </form>
+</div>
+{% endblock %}
