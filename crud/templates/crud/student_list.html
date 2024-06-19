@@ -16,6 +16,7 @@ Student
                 <th>Name</th>
                 <th>Age</th>
                 <th>Email</th>
+                <th>Classroom</th>
                 <th>Address</th>
             </tr>
         </thead>
@@ -26,9 +27,10 @@ Student
                     <td>{{student.name}}</td>
                     <td>{{student.age}}</td>
                     <td>{{student.email}}</td>
+                    <td>{{student.classroom.name}}</td>
                     <td>{{student.address}}</td>
                     <td>
-                        <a href="#" class="btn btn-primary">Update</a>
+                        <a href="{% url 'update_student' student.id %}" class="btn btn-primary">Update</a>
                         <a href="#" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>

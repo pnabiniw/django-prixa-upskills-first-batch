@@ -6,32 +6,36 @@ Add Student
 
 {% block content %}
 <div class="container">
-    <h1>Add Student</h1><br>
+    <h1>Update Student</h1><br>
 
     <form method="post" class="form form-group">
         {% csrf_token %}
         <div>
             <label>Name</label>
-            <input required class="form-control" type="text" name="name" style="width: 50%;">
+            <input required class="form-control" type="text" name="name" style="width: 50%;" value="{{student.name}}">
         </div>
         <div>
             <label>Age</label>
-            <input required class="form-control" type="number" style="width: 50%;" name="age">
+            <input required class="form-control" type="number" style="width: 50%;" name="age" value={{student.age}}>
         </div><br>
 
         <div>
             <label>Email</label>
-            <input required class="form-control" type="email" style="width: 50%;" name="email">
+            <input required class="form-control" type="email" style="width: 50%;" name="email" value="{{student.email}}">
         </div><br>
         <div>
             <label>Address</label>
-            <input required class="form-control" type="text" style="width: 50%;" name="address">
+            <input required class="form-control" type="text" style="width: 50%;" name="address" value="{{student.address}}">
         </div>
         <div>
             <label>Classroom</label>
             <select name="classroom" class="form-control" style="width: 50%">
                 {% for classroom in classrooms %}
-                    <option value={{classroom.id}}>{{classroom.name}}</option>
+                {% if classroom.id == student.classroom.id %}
+                    <option selected  value={{classroom.id}}>{{classroom.name}}</option>
+                {%else%}
+                <option  value={{classroom.id}}>{{classroom.name}}</option>
+                {% endif %}
                 {% endfor %}
             </select>
         </div>

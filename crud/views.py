@@ -48,6 +48,21 @@ def add_student_view(request):
         age = request.POST.get("age")
         email = request.POST.get("email")
         address = request.POST.get("address")
-        Student.objects.create(name=name, age=age, email=email, address=address)
+        classroom_id = request.POST.get("classroom")
+        Student.objects.create(name=name, age=age, email=email, address=address, classroom_id=classroom_id)
         return redirect("crud_student")
-    return render(request, template_name="crud/add_student.html")
+    return render(request, template_name="crud/add_student.html", context={"classrooms": Classroom.objects.all()})
+
+
+def update_student_view(request, id):
+    student = Student.objects.get(id=id)
+    if request.method == "POST":
+        name = request.POST.get("name")
+        age = request.POST.get("age")
+        email = request.POST.get("email")
+        address = request.POST.get("address")
+        classroom_id = request.POST.get("classroom")
+        Student.objects.filter(id=id).update(name=name, age=age, email=email, address=address, classroom_id=classroom_id)
+        return redirect("crud_student")
+    return render(request, template_name="crud/update_student.html", 
+                  context={"classrooms": Classroom.objects.all(), "student": student})

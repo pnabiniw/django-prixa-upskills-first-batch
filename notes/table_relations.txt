@@ -1,0 +1,26 @@
+There are three types of table relations
+1. One-One relation
+2. One-Many relation
+3. Many-Many relation
+
+
+
+1. One-Many Relation
+=> This relation is used to group the items under certain topic/category
+For example: Classroom => Student, Menu => Food, Team => Players, ChatRoom => Users
+
+
+2. One-One Relation
+=> If single and unique item of a category exist then it is One-One relation
+=> User => UserProfile, Lock => Key, User => Account in One Bank
+
+
+3. Many-Many Relation
+=> If multiple entity of a table can be related with multiple entity of another table then it is Many-Many Relation
+=> User => Role, Course => Content, Student => Subject
+
+
+How to use these relations in Django?
+1. For One-Many relation we use models.ForeignKey() in Django
+2. For One-One relation we use models.OneToOne() in Django
+3. For Many-Many relation we use models.ManyToMany() in Django

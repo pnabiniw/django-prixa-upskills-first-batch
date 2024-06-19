@@ -11,3 +11,6 @@ class Student(models.Model):
     age = models.IntegerField()
     email = models.EmailField()  # a@a.com, abcd
     address = models.CharField(max_length=50)
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name="classroom_students", 
+                                  null=True, blank=True)
+
