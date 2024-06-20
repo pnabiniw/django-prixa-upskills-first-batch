@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+Profile Detail
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            {% if profile.profile_picture %}
+            <img src="{{profile.profile_picture.url}}" 
+            style="height: 300px;width: 300px;">
+
+            {% else %}
+            <img src="{% static 'crud/default.png' %}" style="height: 300px; width: 300px;">
+
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <h2>Student Profile Detail</h2>
+            <table class="table table-striped">
+                <tr>
+                    <td>Name</td>
+                    <td>{{profile.student.name}}</td>
+                </tr>
+                <tr>
+                    <td>Age</td>
+                    <td>{{profile.student.age}}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{profile.student.email}}</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{profile.student.address}}</td>
+                </tr>
+                <tr>
+                    <td>Classroom</td>
+                    <td>{{profile.student.classroom.name}}</td>
+                </tr>
+                <tr>
+                    <td>Phone Number</td>
+                    <td>{{profile.phone}}</td>
+                </tr>
+                <tr>
+                    <td>Roll Number</td>
+                    <td>{{profile.roll}}</td>
+                </tr>
+                <tr>
+                    <td>Bio</td>
+                    <td>{{profile.bio}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

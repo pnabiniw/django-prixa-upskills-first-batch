@@ -17,8 +17,10 @@ Including another URLconf
 
 # Root URL conf
 from django.contrib import admin
+from django.conf import settings
 from django.urls import path, include
 from django.http import HttpResponse
+from django.conf.urls.static import static
 
 def hello_view(request):
     return HttpResponse("<h1>Hello World. I am learning django</h1>")
@@ -30,6 +32,8 @@ urlpatterns = [
     path("", hello_view)
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # URL Chaining
 # It is a way to isolate urls in a large project

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Classroom, Student
+from .models import Classroom, Student, StudentProfile
 
 def classroom_view(request):
     return render(request, template_name="crud/classroom.html", 
@@ -66,3 +66,31 @@ def update_student_view(request, id):
         return redirect("crud_student")
     return render(request, template_name="crud/update_student.html", 
                   context={"classrooms": Classroom.objects.all(), "student": student})
+
+
+def student_profile_view(request):
+    return render(request, template_name="crud/student_profile.html", 
+                  context={"profiles": StudentProfile.objects.all()})
+
+
+def add_student_profile_view(request):
+    if request.method == "POST":
+        student_id = request.POST.get("student_id")
+        phone = request.POST.get("phone")
+        roll = request.POST.get("roll")
+        bio = request.POST.get("bio")
+        pp = request.FILES.get("pp")
+        sp = StudentProfile.objects.create(student_id=student_id, phone=phone, roll=roll, 
+                                      bio=bio)
+        if pp:
+            sp.profile_picture = pp
+            sp.save()
+        return redirect("student_profile")
+    return render(request, template_name="crud/add_student_profile.html", 
+                  context={"students": Student.objects.all()})
+
+
+def student_profile_detail_view(request, id):
+    profile = StudentProfile.objects.get(id=id)
+    return render(request, template_name="crud/student_profile_detail.html", 
+                  context={"profile": profile})

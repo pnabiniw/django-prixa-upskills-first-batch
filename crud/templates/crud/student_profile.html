@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Student
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <h1>Profile List</h1><br>
+    <a href="{% url 'add_student_profile' %}" class="btn btn-success" style="float: right;">Add Student Profile</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Student Name</th>
+                <th>Phone Number</th>
+                <th>Roll</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{profile.student.name}}</td>
+                    <td>{{profile.phone}}</td>
+                    <td>{{profile.roll}}</td>
+                    <td>
+                        <a href="#" class="btn btn-primary">Update</a>
+                        <a href="#" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'student_profile_detail' profile.id %}" class="btn btn-success">Detail</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

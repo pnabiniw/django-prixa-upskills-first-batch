@@ -4,3 +4,5 @@
 14. Models (June 14)
 15. Classroom CRUD (June 17)
 16. Classroom Update and Delete (June 18)
+17. June 19
+18. June 20

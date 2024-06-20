@@ -1,0 +1,43 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+Add Student Profile
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Add Student Profile</h1><br>
+
+    <form method="post" class="form form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label>Student*</label><br>
+            <select class="form-control" name="student_id" required style="width: 50%;">
+                {% for student in students %}
+                    <option value={{student.id}}>{{student.name}}</option>
+                {% endfor %}
+            </select><br>
+        </div>
+        <div>
+            <label>Phone Number*</label>
+            <input required class="form-control" type="text" name="phone" style="width: 50%;">
+        </div>
+        <div>
+            <label>Roll Number*</label>
+            <input required class="form-control" type="number" style="width: 50%;" name="roll">
+        </div><br>
+
+        <div>
+            <label>Bio*</label><br>
+            <textarea class="form-control" style="width: 50%;" rows="4" required name="bio"></textarea>
+        </div>
+        <br>
+        <div>
+            <label>Profile Picture</label>
+            <input type="file" name="pp">
+        </div>
+
+        <button class="btn btn-primary" type="submit" >Submit</button>
+    </form>
+</div>
+{% endblock %}
