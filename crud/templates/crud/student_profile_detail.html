@@ -54,6 +54,9 @@ Profile Detail
                     <td>{{profile.bio}}</td>
                 </tr>
             </table>
+
+            <a class="btn btn-primary" href="{% url 'student_profile_update' profile.id %}">Update</a>
+            <a class="btn btn-success" href="{% url 'student_profile' %}">Back</a>
         </div>
     </div>
 </div>

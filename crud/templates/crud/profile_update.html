@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}
+Profile Update
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-md-4">
+            {% if profile.profile_picture %}
+            <img src="{{profile.profile_picture.url}}" style="height: 300px; width: 300px;">
+            {% else %}
+            <img src="{% static 'crud/default.png' %}" style="height: 300px; width: 300px;">
+
+            {% endif %}
+            <input type="file" name="pp">
+        </div>
+        <div class="col-md-8">
+            <div>
+                <label>Name</label>
+                <input type="text" name="student_name" class="form-control" value="{{profile.student.name}}">
+            </div>
+            <div>
+                <label>Phone Number</label>
+                <input type="text" name="phone" class="form-control" value="{{profile.phone}}">
+            </div>
+            <div>
+                <label>Roll Number</label>
+                <input type="number" name="roll" class="form-control" value="{{profile.roll}}">
+            </div>
+            <div>
+                <label>Bio</label>
+                <textarea name="bio" class="form-control" rows="4">{{profile.bio}}</textarea>
+            </div><br>
+            <button class="btn btn-primary" type="submit">Submit</button>
+            <a class="btn btn-success" href="{% url 'student_profile_detail' profile.id %}">Back</a>
+        </div>
+    </div>
+
+    </form>
+</div>
+{% endblock %}

@@ -94,3 +94,22 @@ def student_profile_detail_view(request, id):
     profile = StudentProfile.objects.get(id=id)
     return render(request, template_name="crud/student_profile_detail.html", 
                   context={"profile": profile})
+
+
+def student_profile_update_view(request, id):
+    profile = StudentProfile.objects.get(id=id)
+    if request.method == "POST":
+        phone = request.POST.get("phone")
+        roll = request.POST.get("roll")
+        bio = request.POST.get("bio")
+        pp = request.FILES.get("pp")
+        name = request.POST.get("student_name")
+        StudentProfile.objects.filter(id=id).update(phone=phone, roll=roll, bio=bio)
+        student = profile.student
+        student.name = name
+        student.save()
+        if pp:
+            profile.profile_picture = pp
+            profile.save()
+        return redirect("student_profile_detail", profile.id)
+    return render(request, template_name="crud/profile_update.html", context={"profile": profile})
