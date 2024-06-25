@@ -1,0 +1,36 @@
+1. API stands for Application Programmable Interface
+2. API is a communication medium among two or more entities like Frontend-Backend, 
+Mobile-Backend, Backend-Backend
+3. Communication is done is JSON language
+4. JSON stands for Javascript Object Notation. It is the way to represent an object
+    => JSON looks like dictionary of python, object of Javascript
+
+    {
+        "name": "Jon",
+        "email": "jon@email.com",
+        "age": 26
+    }
+
+     {
+        'name': "Jon",
+        "email": "jon@email.com",
+        "age": 26
+    } => This is invalid JSON because of single quote at name key
+
+    => JSON only supports double quotes
+
+5. There are broadly two types of APIs
+    => REST APIs
+    => SOAP APIs
+
+    SOAP APIs use XML as communication language
+    <name>Jon</name>
+    <age>24</age>
+    <address>KTM</address>  # XML format
+
+
+    REST APIs use JSON as communication language
+    => REST stands Representational State Transfer
+
+6. Using DRF we will create API endpoints
+

@@ -28,6 +28,7 @@ def hello_view(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("crud/", include("crud.urls")),
+    path("api/", include("api.urls")),
     path("", include("myapp.urls")),
     path("", hello_view)
 ]
