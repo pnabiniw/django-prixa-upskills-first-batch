@@ -30,7 +30,7 @@ class ClassRoomDetailView(APIView):
         except:
             return Response({
                 "message": "Invalid id"
-            })
+            }, status=404)
         return Response({
             "id": classroom.id,
             "name": classroom.name,
@@ -46,7 +46,7 @@ class StudentDetailView(APIView):
         except:
             return Response({
                 "message": "Invalid id"
-            })
+            }, status=404)
         return Response({
             "id": student.id,
             "name": student.name,
@@ -71,6 +71,18 @@ class ClassroomListView(APIView):
         # [{}, {}, {}]
         return Response(response)
     
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        name = data.get("name")
+        section = data.get("section")
+        classroom = Classroom.objects.create(name=name, section=section)  # ORM
+        return Response({
+            "message": "Classroom created successfully !",
+            "id": classroom.id,
+            "name": classroom.name,
+            "section": classroom.section
+        }, status=201)
+    
 class StudentListView(APIView):
     def get(self, *args, **kwargs):
         students = Student.objects.all()
@@ -82,9 +94,23 @@ class StudentListView(APIView):
             "age": student.age,
             "email": student.email,
             "address": student.address,
-            "classroom": student.classroom.id
+            "classroom": student.classroom.id if student.classroom else None
         })
         return Response(response)
+    
+    def post(self, *args, **kwargs):
+        name = self.request.data.get("name")
+        age = self.request.data.get("age")
+        email = self.request.data.get("email")
+        address = self.request.data.get("address")
+        student = Student.objects.create(name=name, age=age, email=email, address=address)
+        return Response({
+            "message": "Student created successfully !",
+            "name": student.name,
+            "age": student.age,
+            "email": student.email,
+            "address": student.address
+        }, status=201)
 
 
 class ClassRoomDetailUsingSerView(APIView):
@@ -95,7 +121,7 @@ class ClassRoomDetailUsingSerView(APIView):
         except:
             return Response({
                 "message": "Invalid id"
-            })
+            }, status=404)
         serializer = ClassRoomSerializer(classroom)  # This is serialization
         return Response(serializer.data)
 
@@ -108,7 +134,7 @@ class StudentDetailUsingSerView(APIView):
         except:
             return Response({
                 "message": "Invalid id"
-            })
+            }, status=404)
         serializer = StudentSerializer(student)  # This is serialization
         return Response(serializer.data)
 
@@ -134,6 +160,23 @@ class ClassRoomListUsingSerView(APIView):
         #     response.append(ser.data)
         return Response(serializer.data)
     
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        serializer = ClassRoomSerializer(data=data)  # This is deserialization
+        print(serializer.is_valid())
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            print(validated_data)
+            name = validated_data.get("name")
+            section = validated_data.get("section")
+            Classroom.objects.create(name=name, section=section)
+            return Response({
+                "message": "Classroom created successfully",
+                "data": serializer.data
+            }, status=201)
+        else:
+            return Response(serializer.errors, status=400)
+    
 
 class StudentListUsingSerView(APIView):
     def get(self, *args, **kwargs):
@@ -141,3 +184,22 @@ class StudentListUsingSerView(APIView):
         serializer = StudentSerializer(students, many=True)
         return Response(serializer.data)
 
+
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        serializer = StudentSerializer(data=data)  # This is deserialization
+        print(serializer.is_valid())
+        if serializer.is_valid():
+            validated_data = serializer.validated_data
+            print(validated_data)
+            name = validated_data.get("name")
+            age = validated_data.get("age")
+            email = validated_data.get("email")
+            address = validated_data.get("address")
+            Student.objects.create(name=name, age=age, email=email, address=address)
+            return Response({
+                "message": "Student created successfully",
+                "data": serializer.data
+            }, status=201)
+        else:
+            return Response(serializer.errors, status=400)

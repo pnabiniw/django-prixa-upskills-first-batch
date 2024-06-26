@@ -7,13 +7,13 @@ from rest_framework import serializers
 
 
 class ClassRoomSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    id = serializers.IntegerField(required=False)
     name = serializers.CharField()
     section = serializers.CharField()
 
 
 class StudentSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    id = serializers.IntegerField(required=False)
     name = serializers.CharField()
     age = serializers.IntegerField()
     email = serializers.EmailField()
