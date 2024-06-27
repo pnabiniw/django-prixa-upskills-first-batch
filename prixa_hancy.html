@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="additional-question"></div>
+    <div class="mt-1" >
+        <button class="btn btn-outline-primary" id="add-option">+ Add Options</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Function to add additional options
+            $("#add-option").click(function(e) {
+                e.preventDefault();
+                // Check if we have reached the maximum limit (12 options)
+                var maxOptions = 12;
+                var numOptions = $("#additional-question input[type='text']").length;
+                if (numOptions >= maxOptions) {
+                    alert("Maximum number of options reached (12).");
+                    return;
+                }
+        
+                // Generate HTML for the new option
+                var newOptionHTML = '<label for="choices' + (numOptions + 5) + '">Choice ' + (numOptions + 5) + '*</label>' +
+                    '<input type="text" id="choices' + (numOptions + 5) + '" name="choices' + (numOptions + 5) + '" class="form-control required">' +
+                    '<span style="color: red;" class="choice-error"></span>';
+        
+                // Append the new option HTML to the additional question div
+                $("#additional-question").append('<div class="mt-1">' + newOptionHTML + '</div>');
+            });
+        });
+        
+    </script>
+</body>
+</html>

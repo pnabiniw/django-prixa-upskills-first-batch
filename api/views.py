@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from crud.models import Classroom, Student
-from .serializers import ClassRoomSerializer, StudentSerializer
+from .serializers import ClassRoomSerializer, StudentSerializer, ClassRoomModelSerializer, StudentModelSerializer
 
 
 class MessageView(APIView):
@@ -203,3 +203,39 @@ class StudentListUsingSerView(APIView):
             }, status=201)
         else:
             return Response(serializer.errors, status=400)
+        
+    
+class ClassRoomView(APIView):
+    def get(self, *args, **kwargs):
+        classrooms = Classroom.objects.all()
+        serializer = ClassRoomModelSerializer(classrooms, many=True)
+        return Response(serializer.data)
+
+    def post(self, *args, **kwargs):
+        data = self.request.data
+        serializer = ClassRoomModelSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({
+                "message": "Classroom created successfully !",
+                "data": serializer.data
+            }, status=201)
+        return Response(serializer.errors, status=400)
+
+
+class StudentView(APIView):
+    def get(self, *args, **kwargs):
+        students = Student.objects.all()
+        serializer = StudentModelSerializer(students, many=True, 
+                                            context={"request": self.request})
+        return Response(serializer.data)
+    
+    def post(self, *args, **kwargs):
+        ser = StudentModelSerializer(data=self.request.data, context={"request": self.request})
+        if ser.is_valid():
+            ser.save()
+            return Response({
+                "message": "Student created successfully !",
+                "data": ser.data
+            })
+        return Response(ser.errors)

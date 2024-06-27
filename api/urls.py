@@ -2,7 +2,8 @@ from django.urls import path
 from .views import (MessageView, SimpleStudentView, ClassRoomDetailView, 
                     StudentDetailView, ClassroomListView, StudentListView, 
                     ClassRoomDetailUsingSerView, StudentDetailUsingSerView, 
-                    ClassRoomListUsingSerView, StudentListUsingSerView)
+                    ClassRoomListUsingSerView, StudentListUsingSerView, ClassRoomView,
+                    StudentView)
 
 
 urlpatterns = [
@@ -19,6 +20,9 @@ urls_for_serializer_views = [
     path("student-using-serializer/<int:id>/", StudentDetailUsingSerView.as_view()),
     path("classroom-list-using-serializer/", ClassRoomListUsingSerView.as_view()),
     path("student-list-using-serializer/", StudentListUsingSerView.as_view()),
+
+    path("classroom-model-ser/", ClassRoomView.as_view()),
+    path("student-model-ser/", StudentView.as_view()),
 ]
 
 urlpatterns += urls_for_serializer_views

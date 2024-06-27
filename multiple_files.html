@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/fe8cd9a30c.js" crossorigin="anonymous"></script>
+
+    <title>Dynamic File Input</title>
+    <style>
+        /* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#fileForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-input-group {
+    margin-bottom: 10px;
+}
+
+.add-more-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-more-btn:hover {
+    background-color: #218838;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="fileForm">
+            <div class="file-input-group">
+                <input type="text" name="file_name" placeholder="File Name">
+                <input type="file" name="files">
+                <!-- <a href="#"><i class="fa-solid fa-square-xmark"></i></a> -->
+            </div>
+            <button type="button" title="add more" id="addMore" class="add-more-btn">+</button>
+        </form>
+    </div>
+
+    <script>
+        // scripts.js
+document.getElementById('addMore').addEventListener('click', function() {
+    // Create a new div element for the file input group
+    const newFileInputGroup = document.createElement('div');
+    newFileInputGroup.classList.add('file-input-group');
+
+    // Create a new file input element
+    const newFileInput = document.createElement('input');
+    const newFileName = document.createElement('input');
+    const newAnchor = document.createElement("a")
+    newFileInput.type = 'file';
+    newFileInput.name = 'files';
+    newFileName.type = "text"
+    newFileName.name = "file_name"
+    newFileName.placeholder = "File Name"
+
+
+
+    // Append the new file input to the new div
+    newFileInputGroup.appendChild(newFileName);
+    newFileInputGroup.appendChild(newFileInput);
+    
+
+    const form = document.getElementById('fileForm');
+    const addButton = document.getElementById('addMore');
+
+    // Insert the new div before the add button
+    form.insertBefore(newFileInputGroup, addButton);
+});
+
+    </script>
+</body>
+</html>
