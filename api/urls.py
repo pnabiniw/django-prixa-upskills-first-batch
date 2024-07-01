@@ -1,13 +1,18 @@
 from django.urls import path
+from rest_framework.routers import DefaultRouter
 from .views import (MessageView, SimpleStudentView, ClassRoomDetailView, 
                     StudentDetailView, ClassroomListView, StudentListView, 
                     ClassRoomDetailUsingSerView, StudentDetailUsingSerView, 
                     ClassRoomListUsingSerView, StudentListUsingSerView, ClassRoomView,
-                    StudentView)
+                    StudentView, ClassRoomGenericView, ClassRoomGenericCreateView, 
+                    ClassRoomListCreateView, ClassRoomUpdateGenericView, ClassRoomUpdateDetailDeleteView,
+                    ClassRoomViewset)
 
+router = DefaultRouter()  # object of default router
+router.register("classroom-viewset", ClassRoomViewset, basename="classroom")  # classroom_destroy
 
 urlpatterns = [
-    path("message/", MessageView.as_view()),
+    path("message/", MessageView.as_view(), name="simple-message"),
     path("simple-student/", SimpleStudentView.as_view()),
     path("classroom/<int:id>/", ClassRoomDetailView.as_view()),
     path("classroom-list/", ClassroomListView.as_view()),
@@ -25,4 +30,13 @@ urls_for_serializer_views = [
     path("student-model-ser/", StudentView.as_view()),
 ]
 
-urlpatterns += urls_for_serializer_views
+urls_for_generic_views = [
+    path("classroom-generic-view/", ClassRoomGenericView.as_view()),
+    path("classroom-generic-create-view/", ClassRoomGenericCreateView.as_view()),
+    path("classroom-list-create/", ClassRoomListCreateView.as_view()),
+
+    path("classroom-update/<int:pk>/", ClassRoomUpdateGenericView.as_view()),
+    path("classroom-detail-update-delete/<int:pk>/", ClassRoomUpdateDetailDeleteView.as_view()),
+]
+
+urlpatterns += urls_for_serializer_views + urls_for_generic_views + router.urls

@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIView, \
+UpdateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 from crud.models import Classroom, Student
 from .serializers import ClassRoomSerializer, StudentSerializer, ClassRoomModelSerializer, StudentModelSerializer
 
@@ -239,3 +242,32 @@ class StudentView(APIView):
                 "data": ser.data
             })
         return Response(ser.errors)
+    
+
+class ClassRoomGenericView(ListAPIView):
+    serializer_class = ClassRoomModelSerializer
+    queryset = Classroom.objects.all()
+
+
+class ClassRoomGenericCreateView(CreateAPIView):
+    serializer_class = ClassRoomModelSerializer
+
+
+class ClassRoomListCreateView(ListCreateAPIView):
+    serializer_class = ClassRoomModelSerializer
+    queryset = Classroom.objects.all()
+
+
+class ClassRoomUpdateGenericView(UpdateAPIView):
+    serializer_class = ClassRoomModelSerializer
+    queryset = Classroom.objects.all()
+
+
+class ClassRoomUpdateDetailDeleteView(RetrieveUpdateDestroyAPIView):
+    serializer_class = ClassRoomModelSerializer
+    queryset = Classroom.objects.all()
+
+
+class ClassRoomViewset(ModelViewSet):
+    serializer_class = ClassRoomModelSerializer
+    queryset = Classroom.objects.all()
