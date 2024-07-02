@@ -1,0 +1,19 @@
+Types of Authentication
+1. Basic Authentication (Not recommended)
+    => In every request we should send username and password
+
+2. Session Authentication
+    => The user session is stored in the browser's cookies
+    => The sessionId is sent to the server in every request
+
+3. Token Authentication
+    => This is mostly used in the APIs
+    => A user token is stored in the backend database
+    => This token is sent to the frontend user as a API response
+    => In every request the token is sent in the request header
+
+4. JWT Authentication (JSON Web Token)
+=> This is also used in APIs
+=> The major difference in token and JWT authentication is JWT doesn't 
+   store the user token in the backend databaser
+=> The JWT tokens are simply encrypted and decrypted but not saved anywhere in database

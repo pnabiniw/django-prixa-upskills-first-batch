@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIView, \
 UpdateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.authentication import TokenAuthentication
 from crud.models import Classroom, Student
 from .serializers import ClassRoomSerializer, StudentSerializer, ClassRoomModelSerializer, StudentModelSerializer
 
@@ -17,6 +19,7 @@ class MessageView(APIView):
 
 
 class SimpleStudentView(APIView):
+    permission_classes = [AllowAny, ]
     def get(self, *args, **kwargs):
         return Response({
             "name": "Jon",
@@ -245,6 +248,7 @@ class StudentView(APIView):
     
 
 class ClassRoomGenericView(ListAPIView):
+    permission_classes = [AllowAny, ]
     serializer_class = ClassRoomModelSerializer
     queryset = Classroom.objects.all()
 
@@ -271,3 +275,8 @@ class ClassRoomUpdateDetailDeleteView(RetrieveUpdateDestroyAPIView):
 class ClassRoomViewset(ModelViewSet):
     serializer_class = ClassRoomModelSerializer
     queryset = Classroom.objects.all()
+
+    def get_permissions(self):
+        if self.request.method == "GET":
+            return [AllowAny(), ]
+        return [IsAuthenticated(), ]

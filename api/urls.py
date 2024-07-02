@@ -1,5 +1,6 @@
 from django.urls import path
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 from .views import (MessageView, SimpleStudentView, ClassRoomDetailView, 
                     StudentDetailView, ClassroomListView, StudentListView, 
                     ClassRoomDetailUsingSerView, StudentDetailUsingSerView, 
@@ -18,6 +19,7 @@ urlpatterns = [
     path("classroom-list/", ClassroomListView.as_view()),
     path("student-list/", StudentListView.as_view()),
     path("student/<int:id>/", StudentDetailView.as_view()),
+    path("login/", obtain_auth_token, name="api_login")
 ]
 
 urls_for_serializer_views = [
