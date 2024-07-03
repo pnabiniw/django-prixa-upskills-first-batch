@@ -1,0 +1,19 @@
+There are two types of Pagination in DRF
+1. PageNumberPagination
+2. LimitOffSetPagination
+
+
+1. In PagenumberPagination data are break down in each page
+    => If we have 100 data then we can decide how many data can be shown in a single page
+    => This number of data in each page is in the control of Backend (not Frontend)
+
+    http://127.0.0.1/api/student/?page=1
+    PAGE_SIZE = 5
+
+2. In LimitOffSetPagination we can control the number of data in each page using Limit value
+    => limit=5 offset=10
+    => Limit is the number of data in each page
+    => Offset is the starting point
+
+
+    limit=10 offset=90

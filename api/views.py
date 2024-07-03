@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView, CreateAPIView, ListCreateAPIView, \
@@ -6,6 +7,12 @@ UpdateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.filters import SearchFilter
+from django_filters.rest_framework import DjangoFilterBackend
+
 from crud.models import Classroom, Student
 from .serializers import ClassRoomSerializer, StudentSerializer, ClassRoomModelSerializer, StudentModelSerializer
 
@@ -275,8 +282,26 @@ class ClassRoomUpdateDetailDeleteView(RetrieveUpdateDestroyAPIView):
 class ClassRoomViewset(ModelViewSet):
     serializer_class = ClassRoomModelSerializer
     queryset = Classroom.objects.all()
+    filter_backends = [SearchFilter, DjangoFilterBackend]
+    search_fields = ["name", ]
+    filterset_fields = ["section", ]
+    # pagination_class = PageNumberPagination
 
     def get_permissions(self):
         if self.request.method == "GET":
             return [AllowAny(), ]
         return [IsAuthenticated(), ]
+
+
+class LoginView(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({
+            'token': token.key,
+            "username": user.username,
+            "email": user.email,
+            "name": user.get_full_name()
+        })

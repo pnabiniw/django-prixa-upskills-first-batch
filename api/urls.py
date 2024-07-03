@@ -7,7 +7,7 @@ from .views import (MessageView, SimpleStudentView, ClassRoomDetailView,
                     ClassRoomListUsingSerView, StudentListUsingSerView, ClassRoomView,
                     StudentView, ClassRoomGenericView, ClassRoomGenericCreateView, 
                     ClassRoomListCreateView, ClassRoomUpdateGenericView, ClassRoomUpdateDetailDeleteView,
-                    ClassRoomViewset)
+                    ClassRoomViewset, LoginView)
 
 router = DefaultRouter()  # object of default router
 router.register("classroom-viewset", ClassRoomViewset, basename="classroom")  # classroom_destroy
@@ -19,7 +19,8 @@ urlpatterns = [
     path("classroom-list/", ClassroomListView.as_view()),
     path("student-list/", StudentListView.as_view()),
     path("student/<int:id>/", StudentDetailView.as_view()),
-    path("login/", obtain_auth_token, name="api_login")
+    # path("login/", obtain_auth_token, name="api_login"),
+    path("login/", LoginView.as_view(), name="api_login"),
 ]
 
 urls_for_serializer_views = [

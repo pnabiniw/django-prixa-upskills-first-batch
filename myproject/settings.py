@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "api",
     "rest_framework",
     "rest_framework.authtoken",
+    "django_filters"
 ]
 
 MIDDLEWARE = [
@@ -143,5 +144,9 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES":[
         "rest_framework.permissions.IsAuthenticated"
-    ]
+    ],
+    # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "DEFAULT_PAGINATION_CLASS": "api.pagination.CustomPagination",
+    "PAGE_SIZE": 2
 }
