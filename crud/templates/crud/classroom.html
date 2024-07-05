@@ -9,6 +9,29 @@ Classroom
 <div class="container">
     <h1>Classroom List</h1><br>
     <a href="{% url 'add_classoom' %}" class="btn btn-success" style="float: right;">Add Classroom</a>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-8">
+                    <form method="get">
+                        <input class="form-control" placeholder="Search..." 
+                        name="search" style="display: inline; width: 40%;" value="{{request.GET.search}}">
+                        <button style="display: inline;" type="submit" class="btn btn-success">Search</button>
+                    </form>
+                </div>
+                <div class="col-md-4">
+                    <select name="section" class="form-control" onchange=filterBySection(event)>
+                    <option selected>Select Section</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -19,9 +42,9 @@ Classroom
             </tr>
         </thead>
         <tbody>
-            {% for classroom in classrooms %}
+            {% for classroom in page_obj %}
                 <tr>
-                    <td>{{forloop.counter}}</td>
+                    <td>{{ page_obj.start_index|add:forloop.counter0 }}</td>
                     <td>{{classroom.name}}</td>
                     <td>{{classroom.section}}</td>
                     <td>
@@ -32,5 +55,18 @@ Classroom
             {% endfor %}
         </tbody>
     </table>
+    {% include 'layouts/pagination.html' %}
 </div>
+{% endblock %}
+
+
+{% block extrajs %}
+<script>
+    function filterBySection(event){
+       console.log(event.target.value)
+       const section = event.target.value
+       window.location.href = `?section=${section}&page={{request.GET.page}}&search={{request.GET.search}}`
+
+    }
+</script>
 {% endblock %}
