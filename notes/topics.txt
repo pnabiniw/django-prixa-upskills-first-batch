@@ -1,0 +1,71 @@
+1. Project Setup
+    => python -m venv venv
+    => venv\Scripts\activate
+    => pip install django
+    => django-admin startproject myproject
+
+2. URL Chaining
+3. Created a new App.
+    => python manage.py startapp <app_name>
+    => Register this App to Installed App in settings.py
+
+4. Created a root page
+    => Register a URL and point that url to a roo_page_view
+    => Return an HTML page from the root page view
+
+5. Hosted a Portfolio page
+6. Learned to pass context from views to template
+    => Context must be a dictionary
+
+7. Learned DTL (Django Templating Language)
+    => Hosted static files {% load static %}
+    => href={% static 'location' %}
+    => looping in the passed context data
+        => {% for s in students %}
+            {{s.name}}
+            {% endfor %}
+        => {% if student.name == "Jon" %}
+                {{do sth}}
+            {%endif%}
+
+8. Template Inheritance
+    => {% extends 'path_to_base.html' %}
+    => {%include 'layouts/pagination.html %}
+
+
+9. Django Models
+    => Migrated default django migrations (python manage.py migrate)
+    => Created a new app (crud)
+    => Created our Classroom / Student / StudentProfile Models
+    => Created our migrations (python manage.py makemigrations, python manage.py migrate)
+    => ORM (Object Relational Mapping)
+    => CRUD ORMs
+    => Model Relations (Mentioned all model Relations, OnetoOne, OnetoMany, ManytoMany) (Used ORM for two model Relations)
+
+10. Created a web application
+    => Student and Classroom CRUD application
+    => HTML forms. Send data from HTML forms to views.py and save it to the database
+
+11. Media Upload
+    => Difference between static and media
+    => Media Hosting
+
+12. Started API (Django Rest Framework)
+    => APIView
+    => Serializers and ModelSerializer
+    => Generic Views
+    => Viewset (Created Routers)
+    => Authentication and Permission (Token Authentication)
+    => Pagination, search and filter
+
+13. Login / Logout in template based project (Session Authentication)
+14. Sweet Alerts
+15. Pagination
+16. Search and filter
+
+
+
+Important Topics
+=> Django Forms
+=> ManytoMany Relation and ORMs
+=> ClassBased Views in template project
